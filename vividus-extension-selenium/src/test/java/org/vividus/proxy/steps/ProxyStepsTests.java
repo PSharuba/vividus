@@ -71,7 +71,7 @@ import org.vividus.softassert.ISoftAssert;
 import org.vividus.steps.ComparisonRule;
 import org.vividus.steps.DataWrapper;
 import org.vividus.steps.StringComparisonRule;
-import org.vividus.ui.web.action.IWebWaitActions;
+import org.vividus.ui.action.web.IWebWaitActions;
 import org.vividus.variable.VariableScope;
 
 import io.netty.handler.codec.http.DefaultHttpHeaders;

@@ -110,6 +110,8 @@
         <property name="testContext" ref="testContext" />
     </bean>
 
+    <bean id="proxySteps" class="org.vividus.proxy.steps.ProxySteps" />
+
     <bean class="org.vividus.steps.ui.validation.DescriptiveSoftAssert" parent="softAssert" />
 
     <bean class="org.vividus.steps.ui.validation.BaseValidations" />
@@ -138,6 +140,8 @@
 
     <bean class="org.vividus.ui.action.search.IndexElementFilter" />
 
+    <bean class="org.vividus.mobileapp.action.NetworkActions" />
+
     <bean class="org.vividus.selenium.screenshot.AbstractScreenshotTaker" id="abstractScreenshotTaker" abstract="true" />
 
     <bean id="abstractAshotFactory" class="org.vividus.selenium.screenshot.AbstractAshotFactory" abstract="true" />
@@ -156,6 +160,7 @@
         <idref bean="navigationSteps" />
         <idref bean="screenshotTakingSteps" />
         <idref bean="barcodeSteps" />
+        <idref bean="proxySteps" />
     </util:list>
 
     <util:map id="propertyEditors-UI" key-type="java.lang.Class">
