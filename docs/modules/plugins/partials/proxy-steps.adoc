@@ -1,5 +1,6 @@
 === Proxy Steps
 ==== Check the number of HTTP requests
+:proxy: This step requires proxy to be turned on. It can be done in properties or by switching on @proxy meta tag at the story level.
 
 {proxy}
 
@@ -65,17 +66,17 @@ When I capture HTTP $httpMethods request with URL pattern `$urlPattern` and save
 * `$variableName` - The variable name to save the HTTP message part.
 
 .Validate the URL of the matching HTTP request
-[source,gherkin]
+[source,gherkin,subs="attributes+"]
 ----
-Given I am on a page with the URL 'https://www.google.com/search?q=vividus'
+{given-step}
 When I capture HTTP GET or POST request with URL pattern `.*/search.*=vividus` and save URL to scenario variable `URL`
 Then `${URL}` is equal to `https://www.google.com/search?q=vividus`
 ----
 
 .Validate the URL query of the matching HTTP request
-[source,gherkin]
+[source,gherkin,subs="attributes+"]
 ----
-Given I am on a page with the URL 'https://www.google.com/search?q=vividus'
+{given-step}
 When I capture HTTP GET request with URL pattern `.*/search.*=vividus` and save URL query to scenario variable `query`
 Then `${query.q[0]}` is equal to `vividus`
 Then `${query.q}` is equal to `[vividus]`
@@ -83,11 +84,10 @@ Then `${query}` is equal to `{q=[vividus]}`
 ----
 
 .Validate the request data from the matching HTTP message
-[source,gherkin]
+[source,gherkin,subs="attributes+"]
 ----
-Given I am on a page with the URL 'http://httpbin.org/forms/post'
-When I click on element located `By.xpath(//button)`
-When I capture GET or HTTP POST request with URL pattern `http://httpbin\.org/post` and save request data to scenario variable `data`
+{given-step}
+When I capture HTTP GET request with URL pattern `https://www.google.com/search?q=vividus` and save request data to scenario variable `data`
 Then `${data.query}` is equal to `{}`
 Then `${data.requestBodyParameters}` is equal to `{delivery=, custtel=, comments=, custemail=, custname=}`
 Then `${data.requestBody}` is not equal to `null`
@@ -95,11 +95,10 @@ Then `${data.responseStatus}` is equal to `200`
 ----
 
 .Validate the response data from the matching HTTP message
-[source,gherkin]
+[source,gherkin,subs="attributes+"]
 ----
-Given I am on a page with the URL 'http://httpbin.org/forms/post'
-When I click on element located `By.xpath(//button)`
-When I capture HTTP POST request with URL pattern `http://httpbin\.org/post` and save response data to scenario variable `data`
+{given-step}
+When I capture HTTP GET request with URL pattern `https://www.google.com/search?q=vividus` and save request data to scenario variable `data`
 Then `${data.responseBody.text}` is equal to `{"status": "ok"}`
 Then `${data.responseBody.mimeType}` is equal to `application/json`
 ----
@@ -119,11 +118,11 @@ When I wait until HTTP $httpMethods request with URL pattern `$urlPattern` exist
 * `$urlPattern` - the regular expression to match HTTP request URL
 
 .Wait for the HTTP request
-[source,gherkin]
+[source,gherkin,subs="attributes+"]
 ----
-Given I am on a page with the URL 'http://httpbin.org/get'
-When I wait until HTTP GET or POST request with URL pattern `http://httpbin\.org/get` exists in proxy log
-Then number of HTTP GET or POST requests with URL pattern `http://httpbin\.org/get` is equal to `1`
+{given-step}
+When I wait until HTTP GET or POST request with URL pattern `https://www.google.com/search?q=vividus` exists in proxy log
+Then number of HTTP GET or POST requests with URL pattern `https://www.google.com/search?q=vividus` is equal to `1`
 ----
 
 
@@ -141,15 +140,13 @@ When I add headers to proxied requests with URL pattern which $comparisonRule `$
 * `$headers` - ExamplesTable representing the list of the headers with columns "name" and "value" specifying HTTP header names and values respectively
 
 .Add headers to the proxied HTTP request
-[source,gherkin]
+[source,gherkin,subs="attributes+"]
 ----
-When I add headers to proxied requests with URL pattern which is equal to `http://httpbin.org/headers`:
+When I add headers to proxied requests with URL pattern which is equal to `https://www.google.com/search?q=vividus`:
 |name     |value     |
 |testName1|testValue1|
 |testName2|testValue2|
-Given I am on a page with the URL 'http://httpbin.org/headers'
-When I change context to element located `xpath(//pre)`
-When I set the text found in search context to the 'SCENARIO' variable 'response'
+{given-step}
 Then a JSON element from '${response}' by the JSON path '$.headers' is equal to '
 {
     "Testname1": "testValue1",
@@ -170,11 +167,11 @@ When I clear proxy log
 ----
 
 .Clear the data recorded by the proxy
-[source,gherkin]
+[source,gherkin,subs="attributes+"]
 ----
-Given I am on a page with the URL 'http:/httpbin.org/get'
+{given-step}
 When I clear proxy log
-Then number of HTTP GET requests with URL pattern `http://httpbin\.org/get` is equal to `0`
+Then number of HTTP GET requests with URL pattern 'https://www.google.com/search?q=vividus' is equal to `0`
 ----
 
 
@@ -189,13 +186,13 @@ When I clear proxy mocks
 ----
 
 .Clear the proxy mocks
-[source,gherkin]
+[source,gherkin,subs="attributes+"]
 ----
-When I mock HTTP responses with request URL which CONTAINS `frames.html` using response code `200`, content `#{loadResource(page.html)}` and headers:
+When I mock HTTP responses with request URL which CONTAINS `vividus` using response code `200`, content `#{loadResource(page.html)}` and headers:
 |name        |value    |
 |Content-Type|text/html|
 When I clear proxy mocks
-Given I am on a page with the URL '${vividus-test-site-url}/frames.html'
+{given-step}
 Then number of elements found by `id(sw)` is = `0`
 ----
 
