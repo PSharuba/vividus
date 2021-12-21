@@ -140,8 +140,6 @@
 
     <bean class="org.vividus.ui.action.search.IndexElementFilter" />
 
-    <bean class="org.vividus.mobileapp.action.NetworkActions" />
-
     <bean class="org.vividus.selenium.screenshot.AbstractScreenshotTaker" id="abstractScreenshotTaker" abstract="true" />
 
     <bean id="abstractAshotFactory" class="org.vividus.selenium.screenshot.AbstractAshotFactory" abstract="true" />

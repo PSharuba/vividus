@@ -13,7 +13,7 @@
 |Overrides the host which will be used by proxy
 
 |proxy.ports
-|10000-10005
+|ports range(e.g., 10000-10005)
 |empty
 |Defines ports range which could be used for proxy
 
